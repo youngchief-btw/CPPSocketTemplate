@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
     struct sockaddr_in serv_addr, cli_addr;
     int n;
 
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    sockfd = socket(AF_UNSPEC, SOCK_STREAM, 0);
     if (sockfd < 0)
     {
         perror("ERROR Opening socket.");
@@ -30,7 +30,7 @@ int main(int argc, char const *argv[])
     portno = 1234; // Port number goes here.
 
     // Configure server details.
-    serv_addr.sin_family = AF_INET;         // More details on types: man socket
+    serv_addr.sin_family = AF_UNSPEC;         // More details on types: man socket
     serv_addr.sin_addr.s_addr = INADDR_ANY; // Allow any interface.
     serv_addr.sin_port = htons(portno);
 
