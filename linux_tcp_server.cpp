@@ -5,6 +5,8 @@
 #include <string.h>
 #include <iostream>
 #include <unistd.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 using namespace std;
 
 int main(int argc, char const *argv[])
@@ -17,6 +19,7 @@ int main(int argc, char const *argv[])
     int n;
 
     sockfd_ipv4 = socket(AF_INET, SOCK_STREAM, 0);
+    // setsockopt(sockfd_ipv4, 0, O_NONBLOCK, 0, 0);
     if (sockfd_ipv4 < 0)
     {
         perror("IPv4 | ERROR Opening socket.");
