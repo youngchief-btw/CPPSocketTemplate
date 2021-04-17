@@ -106,5 +106,9 @@ int main(int argc, char const *argv[])
     }
     }
 
+    // Close socket
+    close(sockfd);
+    close(newsockfd);
+    
     return 0;
 };
