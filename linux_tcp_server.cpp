@@ -92,7 +92,7 @@ int main(int argc, char const *argv[])
         cout << "IPv4 | Connection estabilished!\n";
     }
 
-    printf("IPv4 | Recieved message: %s\n", buffer);
+    printf("IPv4 | Recieved message: \n%s\n", buffer);
 
     // Send something back to client!
     n = write(newsockfd_ipv4, "PONG", 18);
@@ -185,7 +185,7 @@ int main(int argc, char const *argv[])
         cout << "IPv6 | Connection estabilished!\n";
     }
 
-    printf("IPv6 | Recieved message: %s\n", buffer);
+    printf("IPv6 | Recieved message: \n%s\n", buffer);
 
     // Send something back to client!
     n_ipv6 = write(newsockfd_ipv6, "PONG", 18);
