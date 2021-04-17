@@ -67,6 +67,8 @@ int main(int argc, char const *argv[])
  << "\n";
     }
 
+    while(1) 
+    {
     // Accept the connection from client
     newsockfd_ipv4 = accept(sockfd_ipv4, (struct sockaddr *)&cli_addr_ipv4, &clilen_ipv4);
     if (newsockfd_ipv4 < 0)
@@ -104,6 +106,7 @@ int main(int argc, char const *argv[])
     else
     {
         cout << "IPv4 | Sent PONG message!\n";
+    }
     }
 
     // ------------------------IPv6----------------------

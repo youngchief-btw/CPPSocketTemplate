@@ -13,7 +13,7 @@ int main(int argc, char const *argv[])
 {
     int sockfd, newsockfd, portno;
     socklen_t clilen;
-    // char buffer[256];
+    char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
 
@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
     }
 
     // Nap until it gets an incomming connection.
-    if (listen(sockfd_ipv4, 5) < 0)
+    if (listen(sockfd, 5) < 0)
     {
         perror("ERROR Listening to the socket");
     }
@@ -59,13 +59,15 @@ int main(int argc, char const *argv[])
     {
         // change 5 to how ever many connections you want in queue before refusing to connect
         cout << "Now listening to the socket!\n";
-        clilen_ipv4 = sizeof(cli_addr); // 16 is default, change this to how ever many (or little) you want!
-        cout << "Number of connections allowed in queue before refusing to connect: " << clilen_ipv4
+        clilen = sizeof(cli_addr); // 16 is default, change this to how ever many (or little) you want!
+        cout << "Number of connections allowed in queue before refusing to connect: " << clilen
              << "\n";
     }
 
+    while(1) 
+    {
     // Accept the connection from client
-    newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr_ipv4, &clilen_ipv4);
+    newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
     if (newsockfd < 0)
     {
         perror("ERROR Socket accept");
@@ -101,6 +103,7 @@ int main(int argc, char const *argv[])
     else
     {
         cout << "Sent PONG message!\n";
+    }
     }
 
     return 0;

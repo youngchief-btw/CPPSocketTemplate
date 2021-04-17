@@ -11,7 +11,6 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    // ---------------IPv4--------------
     int sockfd, newsockfd, portno;
     socklen_t clilen;
     char buffer[256];
@@ -67,6 +66,8 @@ int main(int argc, char const *argv[])
  << "\n";
     }
 
+    while(1) 
+    {
     // Accept the connection from client
     newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
     if (newsockfd < 0)
@@ -104,6 +105,7 @@ int main(int argc, char const *argv[])
     else
     {
         cout << "Sent PONG message!\n";
+    }
     }
 
     return 0;
