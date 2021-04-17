@@ -11,13 +11,13 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    int sockfd, newsockfd, portno;
+    int sockfd, portno;
     socklen_t clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
 
-    sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
+    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     // setsockopt(sockfd, 0, O_NONBLOCK, 0, 0);
     if (sockfd < 0)
     {
@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
     portno = 1234; // Port number goes here.
 
     // Configure server details.
-    serv_addr.sin_family = AF_UNIX;         // More details on types: man socket
+    serv_addr.sin_family = AF_INET;         // More details on types: man socket
     serv_addr.sin_addr.s_addr = INADDR_ANY; // Allow any interface.
     serv_addr.sin_port = htons(portno);
 
@@ -52,37 +52,37 @@ int main(int argc, char const *argv[])
     }
 
     // Nap until it gets an incomming connection.
-    if (listen(sockfd, 5) < 0)
-    {
-        perror("ERROR Listening to the socket");
-    }
-    else
-    {
-        // change 5 to how ever many connections you want in queue before refusing to connect
-        cout << "Now listening to the socket!\n";
-        clilen
- = sizeof(cli_addr); // 16 is default, change this to how ever many (or little) you want!
-        cout << "Number of connections allowed in queue before refusing to connect: " << clilen
- << "\n";
-    }
+//     if (listen(sockfd, 5) < 0)
+//     {
+//         perror("ERROR Listening to the socket");
+//     }
+//     else
+//     {
+//         // change 5 to how ever many connections you want in queue before refusing to connect
+//         cout << "Now listening to the socket!\n";
+//         clilen
+//  = sizeof(cli_addr); // 16 is default, change this to how ever many (or little) you want!
+//         cout << "Number of connections allowed in queue before refusing to connect: " << clilen
+//  << "\n";
+//     }
 
     while(1) 
     {
-    // Accept the connection from client
-    newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
-    if (newsockfd < 0)
-    {
-        perror("ERROR Socket accept");
-        exit(1);
-    }
-    else
-    {
-        cout << "Accepted connection!\n";
-    }
+//     // Accept the connection from client
+//     sockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
+//     if (sockfd < 0)
+//     {
+//         perror("ERROR Socket accept");
+//         exit(1);
+//     }
+//     else
+//     {
+//         cout << "Accepted connection!\n";
+//     }
 
     // Connected established, let's start communicating
     bzero(buffer, 256);
-    n = read(newsockfd, buffer, 255);
+    n = read(sockfd, buffer, 255);
     if (n < 0)
     {
         perror("ERROR Reading from socket!\n");
@@ -96,7 +96,7 @@ int main(int argc, char const *argv[])
     printf("Recieved message: \n%s\n", buffer);
 
     // Send something back to client!
-    n = write(newsockfd, "PONG", 18);
+    n = write(sockfd, "PONG", 18);
     if (n < 0)
     {
         perror("ERROR writing to socket failed.");
@@ -110,11 +110,6 @@ int main(int argc, char const *argv[])
 
     // Close socket
     close(sockfd);
-    close(newsockfd);
-    // unlink(sockfd);
-    // unlink(newsockfd);
-    // remove(sockfd);
-    // remove(sockfd);
     
     return 0;
 };
