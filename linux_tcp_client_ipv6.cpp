@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 //       exit(0);
 //    }
 	
-   portno = 22; // Replace 1234 /w atoi(argv[2]) if you want to use program arguments for the port number
+   portno = 1234; // Replace 1234 /w atoi(argv[2]) if you want to use program arguments for the port number
    
    /* Create a socket point */
    sockfd = socket(AF_INET6, SOCK_STREAM, 0);
